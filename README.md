@@ -1,14 +1,21 @@
-# flutter_foxitpdf
+# Foxit PDF SDK Flutter Wrapper
+A new flutter for using Foxit PDF SDK to open a pdf document.
+Now, only support Andorid platform.
 
-A new Flutter plugin.
+## System requirements
 
-## Getting Started
+Foxit PDF SDK >= 6.2.1
+Flutter >= 1.0.0
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.io/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+## Installation
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+### Android
+     1.
+     2.
+     3. AndroidManifest.xml
+
+## Usage
+
+## Preview
+
+## APIs
