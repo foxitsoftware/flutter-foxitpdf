@@ -1,0 +1,48 @@
+group 'com.foxit.flutterfoxitpdf'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.1'
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        jcenter()
+        flatDir {
+            dirs '../libs'
+        }
+    }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 27
+
+    defaultConfig {
+        minSdkVersion 16
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+}
+
+dependencies {
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation(name: 'FoxitRDK', ext: 'aar')
+    implementation(name: 'FoxitRDKUIExtensions', ext: 'aar')
+    implementation 'com.edmodo:cropper:1.0.1'
+    implementation('com.microsoft.aad:adal:1.1.16') {}
+    implementation(name: 'RMSSDK-4.2-release', ext: 'aar')
+    implementation(name: 'rms-sdk-ui', ext: 'aar')
+}
