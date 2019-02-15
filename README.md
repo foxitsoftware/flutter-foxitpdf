@@ -24,7 +24,7 @@ Now, only support Andorid platform.
 		rdk_key.txt
 		rdk_sn.txt
 
-3. add dependency to your Flutter project in `testflutter/pubspec.yaml`. 
+3. Add dependency to your Flutter project in `testflutter/pubspec.yaml`. 
 
 		dependencies:
 	  		flutter:
@@ -34,7 +34,7 @@ Now, only support Andorid platform.
 	    +  		git:
 	    +    		url: git://github.com/foxitsoftware/flutter-foxitpdf.git
 	    
-4. adjust `testflutter/android/build.gradle` file.
+4. Adjust `testflutter/android/build.gradle` file.
 
 		allprojects {
 		    repositories {
@@ -46,7 +46,7 @@ Now, only support Andorid platform.
 		    }
 		}
 
-5. adjust `testflutter/android/app/src/main/AndroidManifest.xml` file
+5. Adjust `testflutter/android/app/src/main/AndroidManifest.xml` file
 
 	    <application
 	        android:name="io.flutter.app.FlutterApplication"
@@ -54,9 +54,9 @@ Now, only support Andorid platform.
 	        android:icon="@mipmap/ic_launcher"
 	    +   tools:replace="android:label">
 	    
-6. Replace lib/main.dart [here](#usage)
+6. Replace lib/main.dart, see [Usage](#usage)
 
-7. run, You can run this prject in `Android Studio` or by using `flutter run`
+7. Run, You can run this prject in `Android Studio` or by using `flutter run`
 
 ## <span id="usage">Usage</span>
 
