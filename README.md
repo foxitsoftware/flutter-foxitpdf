@@ -58,6 +58,8 @@ Now, only support Andorid platform.
 
 7. Run, You can run this prject in `Android Studio` or by using `flutter run`
 
+8. If you clone the plugin and run `example` in the project. You should copy `libs` to `example/libs`.
+
 ## <span id="usage">Usage</span>
 
 Replace `YOUR_RDK_SN` and `YOUR_RDK_KEY` with your own license (`rdk_key.txt, rdk_sn.txt`)
