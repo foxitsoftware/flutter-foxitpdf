@@ -3,7 +3,7 @@
 A new flutter for using Foxit PDF SDK to open a pdf document.
 Now, only support Andorid platform.
 
-## System requirements
+## System Requirements
 
 -  Foxit PDF SDK >= 6.2.1
 
@@ -54,11 +54,11 @@ Now, only support Andorid platform.
 	        android:icon="@mipmap/ic_launcher"
 	    +   tools:replace="android:label">
 	    
-6. Replace lib/main.dart, see [Usage](#usage)
+6. Replace `lib/main.dart`, see [Usage](#usage)
 
 7. Run, You can run this prject in `Android Studio` or by using `flutter run`
 
-8. If you clone the plugin and run `example` in the project. You should copy `libs` to `example/libs`.
+8. You may also clone the plugin and run `example` in the project. You need to copy the `libs` to `example/libs` directory.
 
 ## <span id="usage">Usage</span>
 
@@ -155,7 +155,7 @@ Replace `YOUR_RDK_SN` and `YOUR_RDK_KEY` with your own license (`rdk_key.txt, rd
 ![](https://i.imgur.com/HhIIRiq.jpg)
 
 
-## APIs
+## API Reference
 **Initialize Foxit PDF SDK**
 
 	FlutterFoxitpdf.initialize(String, String);
