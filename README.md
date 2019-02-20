@@ -87,6 +87,7 @@ Replace `YOUR_RDK_SN` and `YOUR_RDK_KEY` with your own license (`rdk_key.txt, rd
 	
 	  String _sn = 'YOUR_RDK_SN';
 	  String _key = 'YOUR_RDK_KEY';
+	  String _path = '/mnt/sdcard/FoxitSDK/complete_pdf_viewer_guide_android.pdf';
 	
 	  @override
 	  void initState() {
