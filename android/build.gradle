@@ -26,6 +26,7 @@ android {
 
     defaultConfig {
         minSdkVersion 16
+        versionName "7.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     lintOptions {
@@ -42,4 +43,8 @@ dependencies {
     implementation('com.microsoft.aad:adal:1.1.16') {}
     implementation(name: 'RMSSDK-4.2-release', ext: 'aar')
     implementation(name: 'rms-sdk-ui', ext: 'aar')
+    implementation "io.reactivex.rxjava2:rxjava:2.2.2"
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    implementation 'org.bouncycastle:bcpkix-jdk15on:1.60'
+    implementation 'org.bouncycastle:bcprov-jdk15on:1.60'
 }
