@@ -1,12 +1,13 @@
 # Foxit PDF SDK Flutter Wrapper
 
 A new flutter for using Foxit PDF SDK to open a pdf document.
-Now, only support Andorid platform.
 
 ## System Requirements
 
 -  Foxit PDF SDK >= 6.2.1
-
+    For Android  >= 6.2.1
+    For IOS >= 7.1
+    
 -  Flutter >= 1.0.0
 
 ## Installation
@@ -53,12 +54,56 @@ Now, only support Andorid platform.
 	        android:label="testflutter"
 	        android:icon="@mipmap/ic_launcher"
 	    +   tools:replace="android:label">
-	    
-6. Replace `lib/main.dart`, see [Usage](#usage)
 
-7. Run, You can run this prject in `Android Studio` or by using `flutter run`
+7. Run `flutter packages get`
 
-8. You may also clone the plugin and run `example` in the project. You need to copy the `libs` to `example/libs` directory.
+8. Replace `lib/main.dart`, see [Usage](#usage)
+
+9. Run, You can run this prject in `Android Studio` or by using `flutter run`
+
+10. You may also clone the plugin and run `example` in the project. You need to copy the `libs` to `example/libs` directory.
+
+### IOS
+
+1. Follow the Flutter getting started guides to [install](https://flutter.io/docs/get-started/install), [set up an editor](https://flutter.io/docs/get-started/editor), and [create a Flutter Project.](https://flutter.io/docs/get-started/test-drive?tab=terminal#create-app) , assume you create `testflutter` as your project.
+
+2. Download [Foxit PDF SDK for IOS](https://developers.foxitsoftware.com/pdf-sdk/ios/) package, extract it, and copy the following files (libraries and licenses) in the "libs" folder of the extracted package to `testflutter\ios\libs` directory:
+
+        FoxitRDK.framework
+        uiextensionsDynamic.framework
+        rdk_key.txt
+        rdk_sn.txt
+
+3. Add dependency to your Flutter project in `testflutter/pubspec.yaml`. 
+
+        dependencies:
+              flutter:
+                sdk: flutter
+    
+          +    flutter_foxitpdf:
+        +          git:
+        +            url: git://github.com/foxitsoftware/flutter-foxitpdf.git
+        
+4. Run `flutter packages get`.
+
+5. Adjust `testflutter/ios/Podfile` file
+
+        # Uncomment this line to define a global platform for your project
+       + platform :ios, '9.0'
+       ......  
+            target 'Runner' do
+            ......
+        +   #Foxit pods
+        +   use_frameworks!
+        +   pod 'FoxitPDF', :path => './libs'
+
+6. Run `flutter build ios --no-codesign`.
+
+7. Replace `lib/main.dart`, see [Usage](#usage)
+
+8. Run, You can run this prject in `Xcode` or by using `flutter run`
+
+9. You may also clone the plugin and run `example` in the project. You need to copy the `libs` to `example/ios/libs` directory.
 
 ## <span id="usage">Usage</span>
 
@@ -87,7 +132,7 @@ Replace `YOUR_RDK_SN` and `YOUR_RDK_KEY` with your own license (`rdk_key.txt, rd
 	
 	  String _sn = 'YOUR_RDK_SN';
 	  String _key = 'YOUR_RDK_KEY';
-	  String _path = '/mnt/sdcard/FoxitSDK/complete_pdf_viewer_guide_android.pdf';
+	  String _path = 'YOUR_PDF_FILE';
 	
 	  @override
 	  void initState() {
