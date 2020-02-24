@@ -6,16 +6,15 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
 import android.view.KeyEvent;
 
 import com.foxit.sdk.PDFViewCtrl;
 import com.foxit.uiextensions.UIExtensionsManager;
-import com.foxit.uiextensions.modules.connectpdf.account.AccountModule;
 import com.foxit.uiextensions.utils.AppTheme;
 import com.foxit.uiextensions.utils.UIToast;
 
@@ -41,7 +40,6 @@ public class PDFReaderActivity extends FragmentActivity {
         pdfViewCtrl.setUIExtensionsManager(uiextensionsManager);
         pdfViewCtrl.setAttachedActivity(this);
         uiextensionsManager.onCreate(this, pdfViewCtrl, null);
-        AccountModule.getInstance().onCreate(this, savedInstanceState);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             int permission = ContextCompat.checkSelfPermission(this.getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -101,7 +99,6 @@ public class PDFReaderActivity extends FragmentActivity {
     protected void onDestroy() {
         if (uiextensionsManager != null)
             uiextensionsManager.onDestroy(this);
-        AccountModule.getInstance().onDestroy(this);
         super.onDestroy();
     }
 
