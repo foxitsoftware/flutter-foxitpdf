@@ -5,8 +5,8 @@ A new flutter for using Foxit PDF SDK to open a pdf document.
 ## System Requirements
 
 -  Foxit PDF SDK >= 6.2.1
-    For Android  >= 6.2.1
-    For IOS >= 7.1
+		For Android  >= 6.2.1, After v7.2 only support AndroidX versions.
+		For IOS >= 7.1
     
 -  Flutter >= 1.0.0
 
@@ -22,6 +22,7 @@ A new flutter for using Foxit PDF SDK to open a pdf document.
 		FoxitRDKUIExtensions.aar
 		RMSSDK-4.2-release.aar
 		rms-sdk-ui.aar
+		FoxitMobileScanningRDK.aar (v7.2)
 		rdk_key.txt
 		rdk_sn.txt
 
