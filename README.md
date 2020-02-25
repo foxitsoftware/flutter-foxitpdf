@@ -5,6 +5,7 @@ A new flutter for using Foxit PDF SDK to open a pdf document.
 ## System Requirements
 
 -  Foxit PDF SDK >= 6.2.1
+
 		For Android  >= 6.2.1, After v7.2 only support AndroidX versions.
 		For IOS >= 7.1
     
