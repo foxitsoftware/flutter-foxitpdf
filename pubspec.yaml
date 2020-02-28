@@ -1,6 +1,6 @@
 name: flutter_foxitpdf
 description: Flutter plugin For Foxit PDF SDK to view pdf documents.
-version: 0.0.1
+version: 0.0.2
 author: Foxit PDF SDK team
 homepage: https://github.com/foxitsoftware/flutter-foxitpdf
 
