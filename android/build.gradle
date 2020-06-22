@@ -40,11 +40,12 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation(name: 'FoxitRDK', ext: 'aar')
     implementation(name: 'FoxitRDKUIExtensions', ext: 'aar')
-    implementation(name: 'FoxitMobileScanningRDK', ext: 'aar')
     implementation 'com.edmodo:cropper:1.0.1'
     implementation('com.microsoft.aad:adal:1.16.3') {}
     implementation(name: 'RMSSDK-4.2-release', ext: 'aar')
     implementation(name: 'rms-sdk-ui', ext: 'aar')
+    implementation(name: 'FoxitMobileScanningRDK', ext: 'aar')
+    implementation(name: 'FoxitPDFScan-UI', ext: 'aar')
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     implementation "io.reactivex.rxjava2:rxjava:2.2.16"
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
