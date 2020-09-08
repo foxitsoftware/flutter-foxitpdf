@@ -24,6 +24,7 @@ A new flutter for using Foxit PDF SDK to open a pdf document.
 		RMSSDK-4.2-release.aar
 		rms-sdk-ui.aar
 		FoxitMobileScanningRDK.aar (v7.2)
+		FoxitPDFScan-UI.aar (v7.3)
 		rdk_key.txt
 		rdk_sn.txt
 
