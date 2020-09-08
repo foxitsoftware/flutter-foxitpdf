@@ -74,6 +74,7 @@ A new flutter for using Foxit PDF SDK to open a pdf document.
 
         FoxitRDK.framework
         uiextensionsDynamic.framework
+		FoxitPDFScanUI.framework (v7.3)
         rdk_key.txt
         rdk_sn.txt
 
