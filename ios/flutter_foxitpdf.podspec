@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_foxitpdf'
-  s.version          = '0.0.1'
+  s.version          = '0.0.4'
   s.summary          = 'A new Flutter plugin.'
   s.description      = <<-DESC
 A new Flutter plugin.
@@ -17,6 +17,7 @@ A new Flutter plugin.
   s.dependency 'Flutter'
   s.dependency 'FoxitPDF/FoxitRDK'
   s.dependency 'FoxitPDF/uiextensionsDynamic'
+  s.dependency 'FoxitPDF/FoxitPDFScanUI'
 
 
   s.ios.deployment_target = '8.0'
