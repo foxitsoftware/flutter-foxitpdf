@@ -28,7 +28,7 @@ class _MyAppState extends State<MyApp> {
 
     init(_sn, _key);
 
-    openDocument(_path, null);
+    openDocument(_path, '');
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -77,7 +77,7 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  Future<void> openDocument(String path, Uint8List password) async {
+  Future<void> openDocument(String path, String password) async {
     await FlutterFoxitpdf.openDocument(path, password);
   }
 }

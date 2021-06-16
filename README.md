@@ -66,7 +66,7 @@ A new flutter for using Foxit PDF SDK to open a pdf document.
 
 10. You may also clone the plugin and run `example` in the project. You need to copy the `libs` to `example/libs` directory.
 
-### IOS
+### iOS
 
 1. Follow the Flutter getting started guides to [install](https://flutter.io/docs/get-started/install), [set up an editor](https://flutter.io/docs/get-started/editor), and [create a Flutter Project.](https://flutter.io/docs/get-started/test-drive?tab=terminal#create-app) , assume you create `testflutter` as your project.
 
@@ -74,7 +74,7 @@ A new flutter for using Foxit PDF SDK to open a pdf document.
 
         FoxitRDK.framework
         uiextensionsDynamic.framework
-		FoxitPDFScanUI.framework (v7.3)
+		FoxitPDFScanUI.framework (v8.0)
         rdk_key.txt
         rdk_sn.txt
 
@@ -88,18 +88,18 @@ A new flutter for using Foxit PDF SDK to open a pdf document.
         +          git:
         +            url: git://github.com/foxitsoftware/flutter-foxitpdf.git
         
-4. Run `flutter packages get`.
+4. Run `flutter pub get`.
 
 5. Adjust `testflutter/ios/Podfile` file
 
         # Uncomment this line to define a global platform for your project
-       + platform :ios, '9.0'
+       + platform :ios, '11.0'
        ......  
             target 'Runner' do
             ......
         +   #Foxit pods
         +   use_frameworks!
-        +   pod 'FoxitPDF', :path => './libs'
+        +   pod 'FoxitPDF', :path=>'./libs/FoxitPDF.podspec'
 
 6. Run `flutter build ios --no-codesign`.
 

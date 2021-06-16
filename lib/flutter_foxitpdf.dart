@@ -20,7 +20,7 @@ class FlutterFoxitpdf {
     return error;
   }
 
-  static Future<void> openDocument(String path, Uint8List password) async {
+  static Future<void> openDocument(String path, String password) async {
     _channel.invokeMethod('openDocument', {
       'path': path,
       'password': password,
