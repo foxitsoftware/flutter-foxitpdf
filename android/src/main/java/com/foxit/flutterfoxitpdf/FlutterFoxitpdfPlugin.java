@@ -58,7 +58,7 @@ public class FlutterFoxitpdfPlugin implements MethodCallHandler {
       return;
     }
     String path = call.argument("path");
-    byte[] password = call.argument("password");
+    String password = call.argument("password");
 
     if (path == null || path.trim().length() < 1) {
       result.error("" + Constants.e_ErrParam,"Invalid path", Constants.e_ErrParam);
@@ -73,7 +73,7 @@ public class FlutterFoxitpdfPlugin implements MethodCallHandler {
     Intent intent = new Intent(mActivity, PDFReaderActivity.class);
     Bundle bundle = new Bundle();
     bundle.putString("path", path);
-    bundle.putByteArray("password", password);
+    bundle.putString("password", password);
     intent.putExtras(bundle);
 
     mActivity.startActivity(intent);
