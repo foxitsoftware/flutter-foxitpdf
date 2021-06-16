@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.4'
+        classpath 'com.android.tools.build:gradle:4.1.0'
     }
 }
 
@@ -15,15 +15,12 @@ allprojects {
         jcenter()
         flatDir {
             dirs project(':flutter_foxitpdf').file("$rootDir/libs")
-        }
-    }
+        }    }
 }
 
 rootProject.buildDir = '../build'
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
-}
-subprojects {
     project.evaluationDependsOn(':app')
 }
 

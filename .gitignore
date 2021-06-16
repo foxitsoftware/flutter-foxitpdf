@@ -6,3 +6,6 @@
 pubspec.lock
 
 build/
+example/ios/libs
+.gitignore
+.flutter-plugins-dependencies

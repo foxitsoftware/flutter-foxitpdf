@@ -19,7 +19,7 @@ import com.foxit.uiextensions.utils.AppTheme;
 import com.foxit.uiextensions.utils.UIToast;
 
 public class PDFReaderActivity extends FragmentActivity {
-    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+      private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static final String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -31,7 +31,6 @@ public class PDFReaderActivity extends FragmentActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         AppTheme.setThemeFullScreen(this);
 
         pdfViewCtrl = new PDFViewCtrl(getApplicationContext());
@@ -41,15 +40,18 @@ public class PDFReaderActivity extends FragmentActivity {
         pdfViewCtrl.setAttachedActivity(this);
         uiextensionsManager.onCreate(this, pdfViewCtrl, null);
 
+        Bundle bundle = getIntent().getExtras();
+        String path = bundle == null ? "" : bundle.getString("path");
+        byte[] password = bundle == null ? null : bundle.getString("password", "").getBytes();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             int permission = ContextCompat.checkSelfPermission(this.getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
             if (permission != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
             } else {
-                uiextensionsManager.openDocument(getIntent().getExtras().getString("path"), getIntent().getByteArrayExtra("password"));
+                uiextensionsManager.openDocument(path, password);
             }
         } else {
-            uiextensionsManager.openDocument(getIntent().getExtras().getString("path"), getIntent().getByteArrayExtra("password"));
+            uiextensionsManager.openDocument(path, password);
         }
 
         setContentView(uiextensionsManager.getContentView());
@@ -59,9 +61,12 @@ public class PDFReaderActivity extends FragmentActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_EXTERNAL_STORAGE) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                uiextensionsManager.openDocument(getIntent().getExtras().getString("path"), getIntent().getByteArrayExtra("password"));
-            }else {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Bundle bundle = getIntent().getExtras();
+                String path = bundle == null ? "" : bundle.getString("path");
+                byte[] password = bundle == null ? null : bundle.getString("password", "").getBytes();
+                uiextensionsManager.openDocument(path, password);
+            } else {
                 UIToast.getInstance(getApplicationContext()).show("Permission Denied");
             }
         }
@@ -118,7 +123,8 @@ public class PDFReaderActivity extends FragmentActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (uiextensionsManager != null && uiextensionsManager.onKeyDown(this, keyCode, event)) return true;
+        if (uiextensionsManager != null && uiextensionsManager.onKeyDown(this, keyCode, event))
+            return true;
         return super.onKeyDown(keyCode, event);
     }
 

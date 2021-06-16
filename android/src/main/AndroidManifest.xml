@@ -15,7 +15,14 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
-    <application>
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
+    
+    <application
+        android:requestLegacyExternalStorage="true">
         <activity android:name=".PDFReaderActivity"
             android:configChanges="keyboardHidden|orientation|locale|layoutDirection|screenSize"
             android:theme="@style/AppTheme"

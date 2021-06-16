@@ -2,6 +2,15 @@
 
 A new flutter for using Foxit PDF SDK to open a pdf document.
 
+- [System Requirements](#System-Requirements)
+- [Installation](#Installation)
+  - [Android](#Android)
+  - [iOS](#iOS)
+- [Usage](#Usage)
+- [Preview](#Preview)
+- [API Reference](#API-Reference)
+- [Issues](#Issues)
+
 ## System Requirements
 
 -  Foxit PDF SDK >= 6.2.1
@@ -23,40 +32,47 @@ A new flutter for using Foxit PDF SDK to open a pdf document.
 		FoxitRDKUIExtensions.aar
 		RMSSDK-4.2-release.aar
 		rms-sdk-ui.aar
-		FoxitMobileScanningRDK.aar (v7.2)
-		FoxitPDFScan-UI.aar (v7.3)
+		FoxitMobileScanningRDK.aar
+		FoxitPDFScan-UI.aar
 		rdk_key.txt
 		rdk_sn.txt
 
 3. Add dependency to your Flutter project in `testflutter/pubspec.yaml`. 
-
+```diff
 		dependencies:
 	  		flutter:
-	    		sdk: flutter
+	    		  sdk: flutter
 	
-	  	+	flutter_foxitpdf:
-	    +  		git:
-	    +    		url: git://github.com/foxitsoftware/flutter-foxitpdf.git
-	    
-4. Adjust `testflutter/android/build.gradle` file.
++	                flutter_foxitpdf:
++  		          git:
++    		           url: git://github.com/foxitsoftware/flutter-foxitpdf.git
+```
 
+4. Adjust `testflutter/android/build.gradle` file.
+```diff
 		allprojects {
 		    repositories {
 		        google()
 		        jcenter()
-		+        flatDir {
-		+            dirs project(':flutter_foxitpdf').file("$rootDir/libs")
-		+       }
++ 		        flatDir {
++                           dirs project(':flutter_foxitpdf').file("$rootDir/libs")
++ 		       }
 		    }
 		}
+```
 
 5. Adjust `testflutter/android/app/src/main/AndroidManifest.xml` file
-
+```diff
+        <manifest xmlns:android="http://schemas.android.com/apk/res/android"
++             xmlns:tools="http://schemas.android.com/tools"
+              package="com.foxitreact">
+	
 	    <application
 	        android:name="io.flutter.app.FlutterApplication"
 	        android:label="testflutter"
 	        android:icon="@mipmap/ic_launcher"
-	    +   tools:replace="android:label">
++	        tools:replace="android:label">
+```
 
 7. Run `flutter packages get`
 
@@ -66,7 +82,7 @@ A new flutter for using Foxit PDF SDK to open a pdf document.
 
 10. You may also clone the plugin and run `example` in the project. You need to copy the `libs` to `example/libs` directory.
 
-### IOS
+### iOS
 
 1. Follow the Flutter getting started guides to [install](https://flutter.io/docs/get-started/install), [set up an editor](https://flutter.io/docs/get-started/editor), and [create a Flutter Project.](https://flutter.io/docs/get-started/test-drive?tab=terminal#create-app) , assume you create `testflutter` as your project.
 
@@ -74,32 +90,34 @@ A new flutter for using Foxit PDF SDK to open a pdf document.
 
         FoxitRDK.framework
         uiextensionsDynamic.framework
-		FoxitPDFScanUI.framework (v7.3)
+		FoxitPDFScanUI.framework (v8.0)
         rdk_key.txt
         rdk_sn.txt
 
 3. Add dependency to your Flutter project in `testflutter/pubspec.yaml`. 
-
+```diff
         dependencies:
               flutter:
                 sdk: flutter
     
-          +    flutter_foxitpdf:
-        +          git:
-        +            url: git://github.com/foxitsoftware/flutter-foxitpdf.git
-        
-4. Run `flutter packages get`.
++             flutter_foxitpdf:
++               git:
++                url: git://github.com/foxitsoftware/flutter-foxitpdf.git
+```
+
+4. Run `flutter pub get`.
 
 5. Adjust `testflutter/ios/Podfile` file
-
+```diff
         # Uncomment this line to define a global platform for your project
-       + platform :ios, '9.0'
++           platform :ios, '11.0'
        ......  
             target 'Runner' do
             ......
-        +   #Foxit pods
-        +   use_frameworks!
-        +   pod 'FoxitPDF', :path => './libs'
++           #Foxit pods
++           use_frameworks!
++           pod 'FoxitPDF', :path=>'./libs/FoxitPDF.podspec'
+```
 
 6. Run `flutter build ios --no-codesign`.
 
@@ -145,7 +163,7 @@ Replace `YOUR_RDK_SN` and `YOUR_RDK_KEY` with your own license (`rdk_key.txt, rd
 	
 	    init(_sn, _key);
 	
-	    openDocument(_path, null);
+	    openDocument(_path, "");
 	  }
 	
 	  // Platform messages are asynchronous, so we initialize in an async method.
@@ -194,7 +212,7 @@ Replace `YOUR_RDK_SN` and `YOUR_RDK_KEY` with your own license (`rdk_key.txt, rd
 	    });
 	  }
 	
-	  Future<void> openDocument(String path, Uint8List password) async {
+	  Future<void> openDocument(String path, String password) async {
 	    await FlutterFoxitpdf.openDocument(path, password);
 	  }
 	}
@@ -212,4 +230,23 @@ Replace `YOUR_RDK_SN` and `YOUR_RDK_KEY` with your own license (`rdk_key.txt, rd
 
 **Open a pdf document**
 
-	FlutterFoxitpdf.openDocument(String, Uint8List)
+	FlutterFoxitpdf.openDocument(String, String)
+
+## Issues
+
+### Android
+
+#### 1: uses-sdk:minSdkVersion 16 cannot be smaller than version 19 declared in library [:flutter_foxitpdf]
+
+Suggestion：Increase your project's `android/app/build.gradle` minSdk version to at least 19.
+
+#### 2:Manifest merger failed : Attribute application@label.
+
+Suggestion: Add `tools:replace="android:label"` to <application> element at AndroidManifest.xml to override.
+
+#### 3:com.android.builder.dexing.DexArchiveMergerException: Error while merging dex archives:The number of method references in a .dex file cannot exceed 64K.
+
+Suggestion: Add `multiDexEnabled true` to `android#defaultConfig`
+at `android/app/build.gradle`.
+
+

@@ -1,11 +1,15 @@
 #import "FlutterFoxitpdfPlugin.h"
 
+@interface PDFViewController : UIViewController
+@property (nonatomic, weak) UIExtensionsManager *extensionsManager;
+@end
+
 @interface FlutterFoxitpdfPlugin() <UIExtensionsManagerDelegate>
 
 @property (nonatomic, strong) FSPDFViewCtrl *pdfViewCtrl;
 @property (nonatomic, strong) UIExtensionsManager *uiextensionManager;
-@property (nonatomic, strong) UIViewController *pdfViewController;
-@property (nonatomic, strong) UINavigationController *navgationController;
+@property (nonatomic, strong) PDFViewController *pdfViewController;
+@property (nonatomic, strong) UINavigationController *rootViewController;
 @end
 
 @implementation FlutterFoxitpdfPlugin
@@ -65,20 +69,21 @@ static FSErrorCode errorCode = FSErrUnknown;
     self.uiextensionManager = [[UIExtensionsManager alloc] initWithPDFViewControl:self.pdfViewCtrl];
     self.pdfViewCtrl.extensionsManager = self.uiextensionManager;
     
-    self.pdfViewController = UIApplication.sharedApplication.keyWindow.rootViewController;
+    self.pdfViewController = [[PDFViewController alloc] init];
+    self.pdfViewController.automaticallyAdjustsScrollViewInsets = NO;
     
-    self.navgationController = [[UINavigationController alloc] init];
-    self.navgationController.view = self.pdfViewCtrl;
-    self.navgationController.navigationBarHidden = YES;
-    self.navgationController.view.frame = [[UIScreen mainScreen] bounds];
-    self.navgationController.interactivePopGestureRecognizer.enabled = NO;
+    self.pdfViewController.view = self.pdfViewCtrl;
+    self.rootViewController = [[UINavigationController alloc] initWithRootViewController:self.pdfViewController];
+    self.rootViewController.modalPresentationStyle = UIModalPresentationFullScreen;
+    self.rootViewController.navigationBarHidden = YES;
+    self.pdfViewController.extensionsManager = self.uiextensionManager;
 
     //show
     __weak FlutterFoxitpdfPlugin *weakSelf = self;
     [self.pdfViewCtrl openDoc:path password:password completion:^(FSErrorCode error) {
         if (error == FSErrSuccess) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.pdfViewController presentViewController:weakSelf.navgationController animated:YES completion:nil];
+                [[weakSelf topMostViewController] presentViewController:weakSelf.rootViewController animated:YES completion:nil];
             });
         } else{
             
@@ -86,10 +91,68 @@ static FSErrorCode errorCode = FSErrUnknown;
     }];
     
     self.uiextensionManager.goBack = ^() {
-        [weakSelf.pdfViewController dismissViewControllerAnimated:YES completion:nil];
+        [weakSelf.rootViewController dismissViewControllerAnimated:YES completion:nil];
         [[NSNotificationCenter defaultCenter] removeObserver:weakSelf];
     };
 }
 
+- (UIViewController*) topMostViewController {
+    UIViewController *presentingViewController = [self getForegroundActiveWindow].rootViewController;
+    while (presentingViewController.presentedViewController != nil) {
+        presentingViewController = presentingViewController.presentedViewController;
+    }
+    return presentingViewController;
+}
+
+- (UIWindow *)getForegroundActiveWindow{
+
+    UIWindow *originalKeyWindow = nil;
+    #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+    if (@available(iOS 13.0, *)) {
+        NSSet<UIScene *> *connectedScenes = [UIApplication sharedApplication].connectedScenes;
+        for (UIScene *scene in connectedScenes) {
+            if ([scene isKindOfClass:[UIWindowScene class]]) {
+                UIWindowScene *windowScene = (UIWindowScene *)scene;
+                if (windowScene.activationState == UISceneActivationStateUnattached){
+                    originalKeyWindow = windowScene.windows.firstObject;
+                }
+                if (scene.activationState == UISceneActivationStateForegroundActive) {
+                    for (UIWindow *window in windowScene.windows) {
+                        if (window.isKeyWindow) {
+                            originalKeyWindow = window;
+                            break;
+                        }
+                    }
+                }
+            }
+
+        }
+        if (originalKeyWindow) {
+            return originalKeyWindow;
+        }
+    }
+    #endif
+    return [[[UIApplication sharedApplication] delegate] window];
+}
+
+@end
+
+
+@implementation PDFViewController
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    return !self.extensionsManager.isScreenLocked;
+}
+
+- (BOOL)shouldAutorotate {
+    return !self.extensionsManager.isScreenLocked;
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return self.extensionsManager.prefersStatusBarHidden;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
 
 @end
