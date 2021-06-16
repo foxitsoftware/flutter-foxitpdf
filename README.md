@@ -220,7 +220,7 @@ Replace `YOUR_RDK_SN` and `YOUR_RDK_KEY` with your own license (`rdk_key.txt, rd
 
 ## Preview
 
-![](https://i.imgur.com/HhIIRiq.jpg)
+![foxit_plugin](./readmeimg/foxit_plugin.png)  
 
 
 ## API Reference
