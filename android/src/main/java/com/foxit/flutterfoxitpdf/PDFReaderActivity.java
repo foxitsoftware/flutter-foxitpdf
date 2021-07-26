@@ -102,9 +102,17 @@ public class PDFReaderActivity extends FragmentActivity {
 
     @Override
     protected void onDestroy() {
-        if (uiextensionsManager != null)
+        if (uiextensionsManager != null){
             uiextensionsManager.onDestroy(this);
+            freeMemory();
+        }
         super.onDestroy();
+    }
+
+    private void freeMemory(){
+        System.runFinalization();
+        Runtime.getRuntime().gc();
+        System.gc();
     }
 
     @Override
