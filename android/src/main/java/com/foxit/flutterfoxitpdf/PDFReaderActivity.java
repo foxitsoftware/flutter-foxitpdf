@@ -6,20 +6,22 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.KeyEvent;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
-import android.view.KeyEvent;
 
 import com.foxit.sdk.PDFViewCtrl;
 import com.foxit.uiextensions.UIExtensionsManager;
+import com.foxit.uiextensions.utils.ActManager;
 import com.foxit.uiextensions.utils.AppTheme;
 import com.foxit.uiextensions.utils.UIToast;
 
 public class PDFReaderActivity extends FragmentActivity {
-      private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static final String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -32,6 +34,7 @@ public class PDFReaderActivity extends FragmentActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppTheme.setThemeFullScreen(this);
+        ActManager.getInstance().setCurrentActivity(this);
 
         pdfViewCtrl = new PDFViewCtrl(getApplicationContext());
         uiextensionsManager = new UIExtensionsManager(this, pdfViewCtrl, null);
@@ -102,14 +105,14 @@ public class PDFReaderActivity extends FragmentActivity {
 
     @Override
     protected void onDestroy() {
-        if (uiextensionsManager != null){
+        if (uiextensionsManager != null) {
             uiextensionsManager.onDestroy(this);
             freeMemory();
         }
         super.onDestroy();
     }
 
-    private void freeMemory(){
+    private void freeMemory() {
         System.runFinalization();
         Runtime.getRuntime().gc();
         System.gc();
