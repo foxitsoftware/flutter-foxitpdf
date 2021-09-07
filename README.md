@@ -246,7 +246,16 @@ Suggestion: Add `tools:replace="android:label"` to <application> element at Andr
 
 #### 3:com.android.builder.dexing.DexArchiveMergerException: Error while merging dex archives:The number of method references in a .dex file cannot exceed 64K.
 
-Suggestion: Add `multiDexEnabled true` to `android#defaultConfig`
-at `android/app/build.gradle`.
+Suggestion: Add `multiDexEnabled true` to `android#defaultConfig`at `android/app/build.gradle`.
+	
+#### 4:Cannot run with sound null safety, because the following dependencies.
 
+Suggestion:   
+flutter run --no-sound-null-safety  
+flutter build apk --no-sound-null-safety
+
+#### 5:java.lang.OutOfMemoryError.
+
+Suggestion: Add `android:largeHeap="true"` to `application` at `android/app/src/main/AndroidManifest.xml`
+	
 
