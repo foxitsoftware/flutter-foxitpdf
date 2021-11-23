@@ -248,13 +248,7 @@ Suggestion: Add `tools:replace="android:label"` to <application> element at Andr
 
 Suggestion: Add `multiDexEnabled true` to `android#defaultConfig`at `android/app/build.gradle`.
 	
-#### 4:Cannot run with sound null safety, because the following dependencies.
-
-Suggestion:   
-flutter run --no-sound-null-safety  
-flutter build apk --no-sound-null-safety
-
-#### 5:java.lang.OutOfMemoryError.
+#### 4:java.lang.OutOfMemoryError.
 
 Suggestion: Add `android:largeHeap="true"` to `application` at `android/app/src/main/AndroidManifest.xml`
 	
