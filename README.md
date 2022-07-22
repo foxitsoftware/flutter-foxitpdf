@@ -48,7 +48,9 @@ A new flutter for using Foxit PDF SDK to open a pdf document.
 +    		           url: git://github.com/foxitsoftware/flutter-foxitpdf.git
 ```
 
-4. Adjust `testflutter/android/build.gradle` file.
+4. Run `flutter packages get`
+
+5. Adjust `testflutter/android/build.gradle` file.
 ```diff
 		allprojects {
 		    repositories {
@@ -61,7 +63,7 @@ A new flutter for using Foxit PDF SDK to open a pdf document.
 		}
 ```
 
-5. Adjust `testflutter/android/app/src/main/AndroidManifest.xml` file
+6. Adjust `testflutter/android/app/src/main/AndroidManifest.xml` file
 ```diff
         <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 +             xmlns:tools="http://schemas.android.com/tools"
@@ -74,13 +76,11 @@ A new flutter for using Foxit PDF SDK to open a pdf document.
 +	        tools:replace="android:label">
 ```
 
-7. Run `flutter packages get`
+7. Replace `lib/main.dart`, see [Usage](#usage)
 
-8. Replace `lib/main.dart`, see [Usage](#usage)
+8. Run, You can run this prject in `Android Studio` or by using `flutter run`
 
-9. Run, You can run this prject in `Android Studio` or by using `flutter run`
-
-10. You may also clone the plugin and run `example` in the project. You need to copy the `libs` to `example/libs` directory.
+9. You may also clone the plugin and run `example` in the project. You need to copy the `libs` to `example/libs` directory.
 
 ### iOS
 
@@ -250,6 +250,6 @@ Suggestion: Add `multiDexEnabled true` to `android#defaultConfig`at `android/app
 	
 #### 4:java.lang.OutOfMemoryError.
 
-Suggestion: Add `android:largeHeap="true"` to `application` at `android/app/src/main/AndroidManifest.xml`
+Suggestion: Add `org.gradle.jvmargs=-Xmx2048M` to `android/gradle.properties`
 	
 

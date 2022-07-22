@@ -5,7 +5,6 @@
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="flutterfoxitpdfexample"
-        android:largeHeap="true"
         tools:replace="android:label">
         <activity
             android:name=".MainActivity"
