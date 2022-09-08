@@ -99,9 +99,16 @@ public class PDFReaderActivity extends FragmentActivity {
 
     private void openDocument() {
         Bundle bundle = getIntent().getExtras();
+
         String path = bundle == null ? "" : bundle.getString("path");
         byte[] password = bundle == null ? null : bundle.getString("password", "").getBytes();
-        uiextensionsManager.openDocument(path, password);
+        int type = bundle == null ? 0 : bundle.getInt("type", 0);
+        if (type == 0) {
+            uiextensionsManager.openDocument(path, password);
+        } else {
+            pdfViewCtrl.openDocFromUrl(path, password, null, null);
+        }
+        
     }
 
     @Override

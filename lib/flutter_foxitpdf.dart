@@ -26,4 +26,12 @@ class FlutterFoxitpdf {
       'password': password,
     });
   }
+
+  static Future<void> openDocFromUrl(String url, String password) async {
+    _channel.invokeMethod('openDocFromUrl', {
+      'path': url,
+      'password': password,
+    });
+  }
+
 }
