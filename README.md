@@ -45,7 +45,7 @@ A new flutter for using Foxit PDF SDK to open a pdf document.
 	
 +	                flutter_foxitpdf:
 +  		          git:
-+    		           url: git://github.com/foxitsoftware/flutter-foxitpdf.git
++    		           url: https://github.com/foxitsoftware/flutter-foxitpdf.git
 ```
 
 4. Run `flutter packages get`
