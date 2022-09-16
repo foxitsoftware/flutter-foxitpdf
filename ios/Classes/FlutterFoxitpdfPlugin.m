@@ -43,6 +43,61 @@ static FSErrorCode errorCode = FSErrUnknown;
     //result(errorCode);
 }
 
+- (void)openDocFromUrl:(FlutterMethodCall*)call result:(FlutterResult)result {
+    if (errorCode != FSErrSuccess) {
+        //[result error:("" + errorCode,"Failed to initialize Foxit Library", errorCode)];
+      return;
+    }
+    
+    NSString *path = call.arguments[@"path"];
+    if (path == NULL)
+    {
+        return;
+    }
+    
+    NSString *password = call.arguments[@"password"];
+    if ((NSNull *)password == [NSNull null] || password == NULL) {
+        password = nil;
+    } else {
+        password = [password stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        if (password.length == 0) {
+            password = nil;
+        }
+    }
+    
+    self.pdfViewCtrl = [[FSPDFViewCtrl alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.uiextensionManager = [[UIExtensionsManager alloc] initWithPDFViewControl:self.pdfViewCtrl];
+    self.pdfViewCtrl.extensionsManager = self.uiextensionManager;
+    
+    self.pdfViewController = [[PDFViewController alloc] init];
+    self.pdfViewController.automaticallyAdjustsScrollViewInsets = NO;
+    
+    self.pdfViewController.view = self.pdfViewCtrl;
+    self.rootViewController = [[UINavigationController alloc] initWithRootViewController:self.pdfViewController];
+    self.rootViewController.modalPresentationStyle = UIModalPresentationFullScreen;
+    self.rootViewController.navigationBarHidden = YES;
+    self.pdfViewController.extensionsManager = self.uiextensionManager;
+
+    NSURL *targetURL = [NSURL URLWithString:path];
+    //show
+    __weak FlutterFoxitpdfPlugin *weakSelf = self;
+    [self.pdfViewCtrl openDocFromURL:targetURL password:password cacheOption:nil httpRequestProperties:nil completion:^(FSErrorCode errorCode) {
+        if (error == FSErrSuccess) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[weakSelf topMostViewController] presentViewController:weakSelf.rootViewController animated:YES completion:nil];
+            });
+        } else{
+            
+        }
+    }];
+    
+    self.uiextensionManager.goBack = ^() {
+        [weakSelf.rootViewController dismissViewControllerAnimated:YES completion:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:weakSelf];
+    };
+
+}
+
 - (void)openDocument:(FlutterMethodCall*)call result:(FlutterResult)result {
     if (errorCode != FSErrSuccess) {
         //[result error:("" + errorCode,"Failed to initialize Foxit Library", errorCode)];
