@@ -81,7 +81,7 @@ static FSErrorCode errorCode = FSErrUnknown;
     NSURL *targetURL = [NSURL URLWithString:path];
     //show
     __weak FlutterFoxitpdfPlugin *weakSelf = self;
-    [self.pdfViewCtrl openDocFromURL:targetURL password:password cacheOption:nil httpRequestProperties:nil completion:^(FSErrorCode errorCode) {
+    [self.pdfViewCtrl openDocFromURL:targetURL password:password cacheOption:nil httpRequestProperties:nil completion:^(FSErrorCode error) {
         if (error == FSErrSuccess) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[weakSelf topMostViewController] presentViewController:weakSelf.rootViewController animated:YES completion:nil];
