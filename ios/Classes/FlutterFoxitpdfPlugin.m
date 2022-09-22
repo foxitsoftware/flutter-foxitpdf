@@ -29,7 +29,9 @@
       [self initialize:call result:result];
   } else if ([@"openDocument" isEqualToString:call.method]) {
       [self openDocument:call result:result];
-   } else {
+   } else if ([@"openDocFromUrl" isEqualToString:call.method]) {
+       [self openDocFromUrl:call result:result];
+    }else {
     result(FlutterMethodNotImplemented);
   }
 }
@@ -50,7 +52,8 @@ static FSErrorCode errorCode = FSErrUnknown;
     }
     
     NSString *path = call.arguments[@"path"];
-    if (path == NULL)
+    NSURL *targetURL = [NSURL URLWithString:path];
+    if (path == NULL || !targetURL)
     {
         return;
     }
@@ -78,7 +81,6 @@ static FSErrorCode errorCode = FSErrUnknown;
     self.rootViewController.navigationBarHidden = YES;
     self.pdfViewController.extensionsManager = self.uiextensionManager;
 
-    NSURL *targetURL = [NSURL URLWithString:path];
     //show
     __weak FlutterFoxitpdfPlugin *weakSelf = self;
     [self.pdfViewCtrl openDocFromURL:targetURL password:password cacheOption:nil httpRequestProperties:nil completion:^(FSErrorCode error) {
