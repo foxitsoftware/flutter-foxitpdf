@@ -120,6 +120,10 @@ public class PDFReaderActivity extends FragmentActivity {
             } else {
                 UIToast.getInstance(getApplicationContext()).show("Permission Denied");
             }
+        } else {
+            if (uiextensionsManager != null) {
+                uiextensionsManager.handleRequestPermissionsResult(requestCode, permissions, grantResults);
+            }
         }
     }
 

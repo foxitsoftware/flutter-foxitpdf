@@ -1,4 +1,4 @@
-# flutterfoxitpdfexample
+# example
 
 A new Flutter project.
 

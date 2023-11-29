@@ -19,7 +19,7 @@ public final class GeneratedPluginRegistrant {
     ShimPluginRegistry shimPluginRegistry = new ShimPluginRegistry(flutterEngine);
     try {
       com.foxit.flutterfoxitpdf.FlutterFoxitpdfPlugin.registerWith(shimPluginRegistry.registrarFor("com.foxit.flutterfoxitpdf.FlutterFoxitpdfPlugin"));
-    } catch(Exception e) {
+    } catch (Exception e) {
       Log.e(TAG, "Error registering plugin flutter_foxitpdf, com.foxit.flutterfoxitpdf.FlutterFoxitpdfPlugin", e);
     }
   }
