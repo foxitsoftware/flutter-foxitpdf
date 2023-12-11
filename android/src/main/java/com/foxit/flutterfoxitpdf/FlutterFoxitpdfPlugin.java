@@ -39,6 +39,9 @@ public class FlutterFoxitpdfPlugin implements MethodCallHandler {
       case "openDocument":
         openDocument(call, result);
         break;
+      case "openDocFromUrl":
+        openDocFromUrl(call, result);
+        break;
       default:
         result.notImplemented();
         break;
@@ -72,6 +75,7 @@ public class FlutterFoxitpdfPlugin implements MethodCallHandler {
 
     Intent intent = new Intent(mActivity, PDFReaderActivity.class);
     Bundle bundle = new Bundle();
+    bundle.putInt("type", 0);
     bundle.putString("path", path);
     bundle.putString("password", password);
     intent.putExtras(bundle);
@@ -79,4 +83,34 @@ public class FlutterFoxitpdfPlugin implements MethodCallHandler {
     mActivity.startActivity(intent);
     result.success(true);
   }
+
+  private void openDocFromUrl(MethodCall call, Result result) {
+    if (errorCode != Constants.e_ErrSuccess) {
+      result.error("" + errorCode,"Failed to initialize Foxit Library", errorCode);
+      return;
+    }
+    String path = call.argument("path");
+    String password = call.argument("password");
+
+    if (path == null || path.trim().length() < 1) {
+      result.error("" + Constants.e_ErrParam,"Invalid path", Constants.e_ErrParam);
+      return;
+    }
+
+    if (mActivity == null) {
+      result.error("-1","The Activity is null", -1);
+      return;
+    }
+
+    Intent intent = new Intent(mActivity, PDFReaderActivity.class);
+    Bundle bundle = new Bundle();
+    bundle.putInt("type", 1);
+    bundle.putString("path", path);
+    bundle.putString("password", password);
+    intent.putExtras(bundle);
+
+    mActivity.startActivity(intent);
+    result.success(true);
+  }
+
 }

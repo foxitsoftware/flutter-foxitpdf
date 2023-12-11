@@ -154,7 +154,7 @@ Replace `YOUR_RDK_SN` and `YOUR_RDK_KEY` with your own license (`rdk_key.txt, rd
 	
 	  String _sn = 'YOUR_RDK_SN';
 	  String _key = 'YOUR_RDK_KEY';
-	  String _path = 'YOUR_PDF_FILE';
+	  String _path = 'YOUR_PDF_FILE  or  YOUR_URL';
 	
 	  @override
 	  void initState() {
@@ -162,8 +162,9 @@ Replace `YOUR_RDK_SN` and `YOUR_RDK_KEY` with your own license (`rdk_key.txt, rd
 	    initPlatformState();
 	
 	    init(_sn, _key);
-	
-	    openDocument(_path, "");
+      
+		openDocument(_path, '');         //1. open doc from local path
+		//openDocFromUrl(_path, '');     //2. open doc from url.
 	  }
 	
 	  // Platform messages are asynchronous, so we initialize in an async method.
@@ -215,6 +216,10 @@ Replace `YOUR_RDK_SN` and `YOUR_RDK_KEY` with your own license (`rdk_key.txt, rd
 	  Future<void> openDocument(String path, String password) async {
 	    await FlutterFoxitpdf.openDocument(path, password);
 	  }
+
+	  Future<void> openDocFromUrl(String url, String password) async {
+		  await FlutterFoxitpdf.openDocFromUrl(url, password);
+	  }
 	}
 ```
 
@@ -228,9 +233,13 @@ Replace `YOUR_RDK_SN` and `YOUR_RDK_KEY` with your own license (`rdk_key.txt, rd
 
 	FlutterFoxitpdf.initialize(String, String);
 
-**Open a pdf document**
+**Open a pdf document from local path**
 
 	FlutterFoxitpdf.openDocument(String, String)
+
+**Open a pdf document from url**
+
+	FlutterFoxitpdf.openDocFromUrl(String, String)
 
 ## Issues
 

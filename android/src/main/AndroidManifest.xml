@@ -36,30 +36,6 @@
                 android:minWidth="520dp"
                 android:minHeight="700dp" />
         </activity>
-
-        <activity
-            android:name="com.microsoft.identity.client.BrowserTabActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="authorize"
-                    android:scheme="com.foxitsoftware.com.mobilepdf-for-android" />
-            </intent-filter>
-        </activity>
-
-        <receiver
-            android:name="com.foxit.uiextensions.annots.multimedia.PhoneStateBroadCastReceiver"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.PHONE_STATE" />
-                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

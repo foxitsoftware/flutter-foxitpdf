@@ -19,7 +19,7 @@ class _MyAppState extends State<MyApp> {
 
   String _sn = 'YOUR_RDK_SN';
   String _key = 'YOUR_RDK_KEY';
-  String _path = '/storage/emulated/0/FoxitSDK/complete_pdf_viewer_guide_android.pdf';
+  String _path = 'YOUR_PDF_FILE  or  YOUR_URL';
 
   @override
   void initState() {
@@ -28,7 +28,8 @@ class _MyAppState extends State<MyApp> {
 
     init(_sn, _key);
 
-    openDocument(_path, '');
+    openDocument(_path, '');      //1. open doc from local path
+    //openDocFromUrl(_path, '');  //2. open doc from url.
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -80,4 +81,9 @@ class _MyAppState extends State<MyApp> {
   Future<void> openDocument(String path, String password) async {
     await FlutterFoxitpdf.openDocument(path, password);
   }
+
+  Future<void> openDocFromUrl(String url, String password) async {
+    await FlutterFoxitpdf.openDocFromUrl(url, password);
+  }
+
 }
