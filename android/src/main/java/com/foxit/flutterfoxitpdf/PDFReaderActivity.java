@@ -24,6 +24,7 @@ import com.foxit.uiextensions.utils.ActManager;
 import com.foxit.uiextensions.utils.AppFileUtil;
 import com.foxit.uiextensions.utils.AppStorageManager;
 import com.foxit.uiextensions.utils.AppTheme;
+import com.foxit.uiextensions.utils.SystemUiHelper;
 import com.foxit.uiextensions.utils.UIToast;
 
 public class PDFReaderActivity extends FragmentActivity {
@@ -44,8 +45,10 @@ public class PDFReaderActivity extends FragmentActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AppTheme.setThemeFullScreen(this);
+
         ActManager.getInstance().setCurrentActivity(this);
+        SystemUiHelper.getInstance().setStatusBarColor(getWindow(), getResources().getColor(com.foxit.uiextensions.R.color.ui_color_top_bar_main));
+
         AppStorageManager.setOpenTreeRequestCode(REQUEST_OPEN_DOCUMENT_TREE);
 
         pdfViewCtrl = new PDFViewCtrl(getApplicationContext());

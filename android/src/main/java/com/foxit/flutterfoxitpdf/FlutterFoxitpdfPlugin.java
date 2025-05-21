@@ -7,24 +7,54 @@ import android.os.Bundle;
 import com.foxit.sdk.common.Constants;
 import com.foxit.sdk.common.Library;
 
+import androidx.annotation.NonNull;
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
+import io.flutter.embedding.engine.plugins.activity.ActivityAware;
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
+
 
 /** FlutterFoxitpdfPlugin */
-public class FlutterFoxitpdfPlugin implements MethodCallHandler {
-  /** Plugin registration. */
-  public static void registerWith(Registrar registrar) {
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), "flutter_foxitpdf");
-    channel.setMethodCallHandler(new FlutterFoxitpdfPlugin(registrar.activity()));
+public class FlutterFoxitpdfPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware {
+  private MethodChannel channel;
+  private Activity activity;
+  private int errorCode = Constants.e_ErrUnknown;
+
+  @Override
+  public void onAttachedToEngine(@NonNull FlutterPlugin.FlutterPluginBinding flutterPluginBinding) {
+    channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "flutter_foxitpdf");
+    channel.setMethodCallHandler(this);
   }
 
-  private int errorCode = Constants.e_ErrUnknown;
-  private Activity mActivity = null;
-  private FlutterFoxitpdfPlugin(Activity activity) {
-    mActivity = activity;
+  @Override
+  public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
+    if (channel != null) {
+      channel.setMethodCallHandler(null);
+      channel = null;
+    }
+  }
+
+  @Override
+  public void onAttachedToActivity(@NonNull ActivityPluginBinding binding) {
+    activity = binding.getActivity();
+  }
+
+  @Override
+  public void onReattachedToActivityForConfigChanges(@NonNull ActivityPluginBinding binding) {
+    activity = binding.getActivity();
+  }
+
+  @Override
+  public void onDetachedFromActivityForConfigChanges() {
+    activity = null;
+  }
+
+  @Override
+  public void onDetachedFromActivity() {
+    activity = null;
   }
 
   @Override
@@ -68,19 +98,19 @@ public class FlutterFoxitpdfPlugin implements MethodCallHandler {
       return;
     }
 
-    if (mActivity == null) {
+    if (activity == null) {
       result.error("-1","The Activity is null", -1);
       return;
     }
 
-    Intent intent = new Intent(mActivity, PDFReaderActivity.class);
+    Intent intent = new Intent(activity, PDFReaderActivity.class);
     Bundle bundle = new Bundle();
     bundle.putInt("type", 0);
     bundle.putString("path", path);
     bundle.putString("password", password);
     intent.putExtras(bundle);
 
-    mActivity.startActivity(intent);
+    activity.startActivity(intent);
     result.success(true);
   }
 
@@ -97,19 +127,19 @@ public class FlutterFoxitpdfPlugin implements MethodCallHandler {
       return;
     }
 
-    if (mActivity == null) {
+    if (activity == null) {
       result.error("-1","The Activity is null", -1);
       return;
     }
 
-    Intent intent = new Intent(mActivity, PDFReaderActivity.class);
+    Intent intent = new Intent(activity, PDFReaderActivity.class);
     Bundle bundle = new Bundle();
     bundle.putInt("type", 1);
     bundle.putString("path", path);
     bundle.putString("password", password);
     intent.putExtras(bundle);
 
-    mActivity.startActivity(intent);
+    activity.startActivity(intent);
     result.success(true);
   }
 

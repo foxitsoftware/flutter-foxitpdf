@@ -50,14 +50,30 @@ A new flutter for using Foxit PDF SDK to open a pdf document.
 
 4. Run `flutter packages get`
 
-5. Adjust `testflutter/android/build.gradle` file.
-```diff
+5. Adjust `testflutter/android/build.gradle` file.  
+   **Note on modifying** build.gradle for **different Gradle/Kotlin DSL versions**  
+   If you are editing the Groovy DSL (build.gradle), use this:  
+```markdown
+```grooxy
 		allprojects {
 		    repositories {
 		        google()
-		        jcenter()
+		        mavenCentral()
 + 		        flatDir {
 +                           dirs project(':flutter_foxitpdf').file("$rootDir/libs")
++ 		       }
+		    }
+		}
+```
+If you are editing the Kotlin DSL (build.gradle.kts), use this:
+```markdown
+```kotlin
+		allprojects {
+		    repositories {
+		        google()
+		        mavenCentral()
++ 		        flatDir {
++                          dirs(project(":flutter_foxitpdf").file("$rootDir/libs"))
 + 		       }
 		    }
 		}
@@ -66,8 +82,7 @@ A new flutter for using Foxit PDF SDK to open a pdf document.
 6. Adjust `testflutter/android/app/src/main/AndroidManifest.xml` file
 ```diff
         <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-+             xmlns:tools="http://schemas.android.com/tools"
-              package="com.foxitreact">
++             xmlns:tools="http://schemas.android.com/tools">
 	
 	    <application
 	        android:name="io.flutter.app.FlutterApplication"

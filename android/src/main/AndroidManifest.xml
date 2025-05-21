@@ -1,6 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.foxit.flutterfoxitpdf">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -11,7 +10,6 @@
     <uses-permission android:name="android.permission.RUN_INSTRUMENTATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission
         android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
@@ -27,7 +25,7 @@
         android:requestLegacyExternalStorage="true">
         <activity
             android:name=".PDFReaderActivity"
-            android:configChanges="keyboardHidden|orientation|locale|layoutDirection|screenSize|smallestScreenSize"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|layoutDirection|screenLayout|uiMode|smallestScreenSize"
             android:exported="true"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan">
