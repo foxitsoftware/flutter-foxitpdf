@@ -45,7 +45,7 @@ A new flutter for using Foxit PDF SDK to open a pdf document.
 	
 +	                flutter_foxitpdf:
 +  		          git:
-+    		           url: git://github.com/foxitsoftware/flutter-foxitpdf.git
++    		           url: https://github.com/foxitsoftware/flutter-foxitpdf.git
 ```
 
 4. Run `flutter packages get`
@@ -117,7 +117,7 @@ If you are editing the Kotlin DSL (build.gradle.kts), use this:
     
 +             flutter_foxitpdf:
 +               git:
-+                url: git://github.com/foxitsoftware/flutter-foxitpdf.git
++                url: https://github.com/foxitsoftware/flutter-foxitpdf.git
 ```
 
 4. Run `flutter pub get`.
